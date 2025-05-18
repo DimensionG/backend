@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const { registrarEstudiante } = require('../controllers/estudiantesController');
+const { registrarEstudiante, actualizarEstudiante } = require('../controllers/estudiantesController');
+
 
 // Ruta POST
 router.post('/', registrarEstudiante);
@@ -17,5 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
+// ✅ Ruta PUT para actualizar un estudiante
+router.put('/:id', actualizarEstudiante);
 
 module.exports = router;
