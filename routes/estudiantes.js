@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { registrarEstudiante, actualizarEstudiante } = require('../controllers/estudiantesController');
+const { registrarEstudiante, actualizarEstudiante, eliminarEstudiante} = require('../controllers/estudiantesController');
 
 
 // Ruta POST
@@ -20,5 +20,10 @@ router.get('/', async (req, res) => {
 
 // ✅ Ruta PUT para actualizar un estudiante
 router.put('/:id', actualizarEstudiante);
+
+// Ruta DELETE para eliminar un estudiante
+// Ruta DELETE
+router.delete('/:id', eliminarEstudiante);
+
 
 module.exports = router;

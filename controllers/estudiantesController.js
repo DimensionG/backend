@@ -39,8 +39,30 @@ const actualizarEstudiante = async (req, res) => {
   }
 };
 
+const eliminarEstudiante = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const resultado = await pool.query(
+      'DELETE FROM estudiantes WHERE numero_control = $1 RETURNING *',
+      [id]
+    );
+
+    if (resultado.rowCount === 0) {
+      return res.status(404).json({ error: 'Estudiante no encontrado' });
+    }
+
+    res.json({ mensaje: 'Estudiante eliminado correctamente' });
+  } catch (error) {
+    console.error('Error al eliminar estudiante:', error);
+    res.status(500).json({ error: 'Error al eliminar estudiante' });
+  }
+};
+
+
 // 👇 Exportamos ambas funciones
 module.exports = {
   registrarEstudiante,
   actualizarEstudiante,
+  eliminarEstudiante,
 };

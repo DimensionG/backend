@@ -20,3 +20,16 @@ const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en http://localhost:${PORT}`);
 });
+
+// DELETE /estudiantes/:numero_control
+app.delete('/api/estudiantes/:numero_control', async (req, res) => {
+  const { numero_control } = req.params;
+  try {
+    await pool.query('DELETE FROM estudiantes WHERE numero_control = $1', [numero_control]);
+    res.status(200).json({ message: 'Estudiante eliminado correctamente' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al eliminar el estudiante' });
+  }
+});
+
